@@ -18,7 +18,7 @@ Active Directory easy.
 ● Including tools for building and managing container images without having to use external
 tools.
 
-## Orchestration Solution : OpenShift
+## Orchestration Solution : OpenShift integrated with OpenStack
 
 
 ![download](https://user-images.githubusercontent.com/73407173/172672081-0bb56df6-810a-473c-a0f6-20ddf3054f13.png)
