@@ -1,0 +1,71 @@
+# Create an OSEv3 group that contains the masters, nodes, and etcd groups
+
+[OSEv3:children]
+masters
+nodes
+etcd
+
+# host group for masters
+
+[masters]
+192.168.239.20 openshift_ip=192.168.239.20 openshift_schedulable=true ansible_connection=local ansible_become=yes
+
+# host group for etcd
+
+[etcd]
+192.168.239.20 openshift_ip=192.168.239.20 ansible_connection=local ansible_become=yes
+
+# host group for nodes, includes region info
+
+[nodes]
+192.168.239.20 openshift_ip=192.168.239.20 openshift_schedulable=true openshift_node_group_name="node-config-master"
+
+192.168.239.36 openshift_ip=192.168.239.36 openshift_node_group_name="node-config-compute" openshift_schedulable=true ansible_become=yes ansible_sudo=ounissi ansible_user=root ansible_ssh_pass=ounissi
+
+192.168.239.38 openshift_ip=192.168.239.38 openshift_node_group_name="node-config-infra" openshift_schedulable=true ansible_become=yes ansible_sudo=ounissi ansible_user=root ansible_ssh_pass=ounissi
+
+
+
+# Set variables common for all OSEv3 hosts
+
+[OSEv3:vars]
+openshift_additional_reps=[{'id':'centos-pass','name':'centos-paas','baseurl':'https://buildlogs.centos.org/centos/7/paas/x86_64/openshift-origin311','gpgcheck':'0','enabled':'1'}]
+ansible_become=yes
+ansible_sudo=true
+ansuble_ssh_user=root
+enable_excluders=false
+enable_docker_excluder=false
+asnible_service_broker_install=false
+
+
+containerized=true
+
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
+openshift_disable_check=disk_availability,docker_storage,memory_availability,docker_image_availability
+
+
+deployment_type=origin
+openshift_deployment_type=origin
+
+openshift_release="v3.11"
+openshift_pkg="v3.11"
+#openshift_metrics_image_version="v3.11"
+openshift_logging_image_version="v3.11"
+openshift_logging_elasticsearch_proxy_image_version="v1.0.0"
+openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
+openshift_image_tag="v3.11"
+openshift_service_catalog_image_version="v3.11"
+template_service_broker_image_verion="v3.11"
+
+
+openshift_metrics_install_metrics=true
+#openshift_logging_install_logging=true
+
+openshift_master_identity_providers=[{'name':'htpasswd_auth','login':'true','challenge':'true','kind':'HTPasswdPasswordIdentityProvider'}]
+openshift_master_htpasswd_file='/etc/origin/master/htpasswd'
+
+openshift_public_hostname=openshift-master.amine.nip.io
+openshift_master_default_subdomain=app.nip.io
+
+#openshift_master_apl_port=8080
+#openshift_master_console_port=8080
