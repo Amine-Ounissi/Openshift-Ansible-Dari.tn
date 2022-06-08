@@ -24,6 +24,10 @@ tools.
 ![download](https://user-images.githubusercontent.com/73407173/172672081-0bb56df6-810a-473c-a0f6-20ddf3054f13.png)
 
 
+## The final architecture of Dari.tn Project 
+
+![Dari tn Architecture](https://user-images.githubusercontent.com/73407173/172675243-83e274b2-8199-4cd6-be3a-29a22256a8f3.png)
+
 
 
 ## OpenShift architecture : 
